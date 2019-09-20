@@ -29,7 +29,7 @@ export async function watchPosition(onSucess, onFail) {
                 Geolocation.watchPosition(
                     position => onSucess(position),
                     error => onFail(error),
-                    { enableHighAccuracy: false, interval:5000 }
+                    { enableHighAccuracy: false, interval:5000,distanceFilter:0 }
                 );
             } else {
                 onFail({ message: "Permissão" });
