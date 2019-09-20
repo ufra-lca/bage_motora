@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { watchPosition } from '../config/geolocation';
+import api from '../config/api';
 
 
 export default class Home extends PureComponent {
@@ -30,9 +32,20 @@ export default class Home extends PureComponent {
     const zootec = !this.state.zootec;
     this.setState({ zootec })
   }
+  updateBage = (position) =>{
+    console.log("aqui")
+    const {latitude,longitude} = position.coords;
+    api.put('/api/bages',{bage:{latitude,longitude,one_signal:"wwewe",rodando: true,sentido:true,zootecnia:true}});
 
+  }
+   watchPosition = async() =>{
+     await watchPosition(this.updateBage,(error)=>(console.log(error)))
+
+  }
+  
   componentDidMount() {
-    //navigator.geolocation.getCurrentPosition((position ) => geo_success, [geo_error], [geo_options]);
+    console.log("asdasdasdasdsadasdasdsad")
+    this.watchPosition();
 
   }
   renderIconSentido = (sentido) => (
