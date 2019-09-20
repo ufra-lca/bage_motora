@@ -1,4 +1,4 @@
-package com.reactnative;
+package com.ondemotora;
 
 import com.wix.detox.Detox;
 
