@@ -1,5 +1,5 @@
 import axios from "axios";
-const hostUrl = "http://10.11.81.17:4000/";
+const hostUrl = "http://99053fcf.ngrok.io/";
 
 const defaultOptions = {
   baseURL: hostUrl,

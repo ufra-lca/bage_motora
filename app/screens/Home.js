@@ -32,17 +32,19 @@ export default class Home extends PureComponent {
     const zootec = !this.state.zootec;
     this.setState({ zootec })
   }
-  updateBage = (position) =>{
+  updateBage = (position) => {
     console.log("aqui")
-    const {latitude,longitude} = position.coords;
-    api.put('/api/bages',{bage:{latitude,longitude,one_signal:"wwewe",rodando: true,sentido:true,zootecnia:true}});
+    const { isAtivo, zootec, sentido } = this.state;
+    const { latitude, longitude } = position.coords;
+    api.put('/api/bages', 
+    { bage: { latitude, longitude, one_signal: "wwewe", rodando: isAtivo, sentido: sentido, zootec: zootec } });
 
   }
-   watchPosition = async() =>{
-     await watchPosition(this.updateBage,(error)=>(console.log(error)))
+  watchPosition = async () => {
+    await watchPosition(this.updateBage, (error) => (console.log(error)))
 
   }
-  
+
   componentDidMount() {
     console.log("asdasdasdasdsadasdasdsad")
     this.watchPosition();
