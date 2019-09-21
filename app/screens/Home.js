@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
-import { watchPosition } from "../config/geolocation";
+import { watchPosition, clearWatches } from "../config/geolocation";
 import api from "../config/api";
 
 export default class Home extends PureComponent {
@@ -17,12 +17,8 @@ export default class Home extends PureComponent {
       sentido: false
     };
   }
-  geo_success = () => {
-    //console.log();
-  };
   isAtivoSet = () => {
     const isAtivo = !this.state.isAtivo;
-
     this.setState({ isAtivo });
   };
 
@@ -50,6 +46,9 @@ export default class Home extends PureComponent {
 
   componentDidMount() {
     this.watchPosition();
+  }
+  componentWillUnmount() {
+    clearWatches();
   }
   renderIconSentido = sentido =>
     sentido ? (
