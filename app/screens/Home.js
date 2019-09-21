@@ -8,11 +8,7 @@ export default class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      latitude: null,
-      longitude: null,
-      error: null,
       isAtivo: false,
-      isOnline: false,
       zootec: false,
       sentido: false
     };

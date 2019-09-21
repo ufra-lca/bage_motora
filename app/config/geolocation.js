@@ -22,7 +22,6 @@ export async function getPosition(onSucess, onFail) {
   });
 }
 export async function watchPosition(onSucess, onFail) {
-  console.log("sadasdasdas");
   Permissions.request("location", { type: "always" }).then(() => {
     Permissions.check("location", { type: "always" }).then(response => {
       if (response === "authorized") {
