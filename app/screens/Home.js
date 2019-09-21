@@ -8,36 +8,42 @@ export default class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isAtivo: false,
+      rodando: false,
       zootec: false,
       sentido: false
     };
   }
-  isAtivoSet = () => {
-    const isAtivo = !this.state.isAtivo;
-    this.setState({ isAtivo });
+  switchRodando = () => {
+    const rodando = !this.state.rodando;
+    this.setState({ rodando });
   };
-
-  zootecSet = () => {
+  switchZootec = () => {
     const zootec = !this.state.zootec;
     this.setState({ zootec });
   };
+  switchSentido = () => {
+    const sentido = !this.state.sentido;
+    this.setState({ sentido });
+  };
+
   updateBage = position => {
-    const { isAtivo, zootec, sentido } = this.state;
+    const { rodando, zootec, sentido } = this.state;
     const { latitude, longitude } = position.coords;
-    api.put("/api/bages", {
-      bage: {
-        latitude,
-        longitude,
-        one_signal: "wwewe",
-        rodando: isAtivo,
-        sentido: sentido,
-        zootec: zootec
-      }
-    });
+    api
+      .put("/api/bages", {
+        bage: {
+          latitude,
+          longitude,
+          one_signal: "wwewe",
+          rodando,
+          sentido,
+          zootec
+        }
+      })
+      .catch(() => {});
   };
   watchPosition = async () => {
-    await watchPosition(this.updateBage, error => console.log(error));
+    await watchPosition(this.updateBage, () => {});
   };
 
   componentDidMount() {
@@ -54,19 +60,19 @@ export default class Home extends PureComponent {
     );
 
   render() {
-    const { isAtivo, sentido, zootec } = this.state;
+    const { rodando, sentido, zootec } = this.state;
     return (
       <View style={{ flex: 1, padding: 10, alignItems: "center" }}>
         <TouchableOpacity
           style={{
             margin: 10,
-            backgroundColor: isAtivo ? "green" : "red",
+            backgroundColor: rodando ? "green" : "red",
             justifyContent: "center",
             height: 50,
             width: 200,
             alignItems: "center"
           }}
-          onPress={this.isAtivoSet}
+          onPress={this.switchRodando}
         >
           <Text>Rodando</Text>
         </TouchableOpacity>
@@ -90,7 +96,7 @@ export default class Home extends PureComponent {
               marginVertical: 10,
               width: 200
             }}
-            onPress={() => this.setState({ sentido: !sentido })}
+            onPress={this.switchSentido}
           >
             {this.renderIconSentido(sentido)}
           </TouchableOpacity>
@@ -105,7 +111,7 @@ export default class Home extends PureComponent {
             width: 200,
             alignItems: "center"
           }}
-          onPress={this.zootecSet}
+          onPress={this.switchZootec}
         >
           <Text>Zootecnia</Text>
         </TouchableOpacity>
