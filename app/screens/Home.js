@@ -19,12 +19,19 @@ export default class Home extends PureComponent {
     this.setState({ rodando });
   };
   switchZootec = () => {
-    const zootec = !this.state.zootec;
-    this.setState({ zootec });
+    const { rodando } = this.state;
+
+    if (rodando) {
+      const zootec = !this.state.zootec;
+      this.setState({ zootec });
+    }
   };
   switchSentido = () => {
-    const sentido = !this.state.sentido;
-    this.setState({ sentido });
+    const { rodando } = this.state;
+    if (rodando) {
+      const sentido = !this.state.sentido;
+      this.setState({ sentido });
+    }
   };
 
   updateBage = position => {
@@ -55,20 +62,35 @@ export default class Home extends PureComponent {
   }
   renderIconSentido = sentido =>
     sentido ? (
-      <Icon name="long-arrow-left" type="font-awesome" size={42} />
+      <Icon
+        name="long-arrow-right"
+        type="font-awesome"
+        size={42}
+        color={"green"}
+      />
     ) : (
-      <Icon name="long-arrow-right" type="font-awesome" size={42} />
+      <Icon
+        name="long-arrow-left"
+        type="font-awesome"
+        size={42}
+        color="green"
+      />
     );
+  renderTextRodando() {
+    const { rodando } = this.state;
+    return rodando ? "Rodando" : "Parado";
+  }
   renderTextSentido() {
     const { sentido } = this.state;
     return sentido ? "Indo para o Prédio" : "Indo para o Portão";
   }
   renderTextZootec() {
     const { zootec } = this.state;
-    return zootec ? "Vai para Zootecnia" : " Não Vai para Zootecnia";
+    return zootec ? "Passa em Zootecnia" : " Não passa Zootecnia";
   }
   render() {
     const { rodando, sentido, zootec } = this.state;
+    const opacity = rodando ? 1 : 0;
     return (
       <View
         style={{
@@ -81,8 +103,8 @@ export default class Home extends PureComponent {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <Text style={{ color: rodando ? "green" : "red" }} h2>
-            Rodando
+          <Text style={{ color: rodando ? "green" : "red" }} h1>
+            {this.renderTextRodando()}
           </Text>
           <SwitchToggle
             switchOn={rodando}
@@ -106,12 +128,14 @@ export default class Home extends PureComponent {
             flex: 1,
             alignItems: "center",
             justifyContent: "center",
-            width: "100%"
+            width: "100%",
+            opacity
           }}
         >
           <Text style={{ color: rodando ? "green" : "red" }} h2>
             {this.renderTextSentido()}
           </Text>
+          {this.renderIconSentido(sentido)}
           <View
             style={{
               width: "100%",
@@ -124,15 +148,15 @@ export default class Home extends PureComponent {
               name="gate"
               type="material-community"
               size={32}
-              color="black"
+              color="green"
             />
             <SwitchToggle
               switchOn={sentido}
               onPress={this.switchSentido}
-              backgroundColorOn={"black"}
+              backgroundColorOn={"green"}
               backgroundColorOff={"green"}
-              circleColorOn={"green"}
-              circleColorOff={"black"}
+              circleColorOn={"white"}
+              circleColorOff={"white"}
               containerStyle={{
                 marginTop: 16,
                 width: 160,
