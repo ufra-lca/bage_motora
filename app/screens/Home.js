@@ -1,9 +1,10 @@
 import React, { PureComponent } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import SwitchToggle from "react-native-switch-toggle";
 import { Icon, Text, Button } from "react-native-elements";
 import { watchPosition, clearWatches } from "../config/geolocation";
 import api from "../config/api";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default class Home extends PureComponent {
   constructor(props) {
@@ -48,10 +49,10 @@ export default class Home extends PureComponent {
           zootec
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   };
   watchPosition = async () => {
-    await watchPosition(this.updateBage, () => {});
+    await watchPosition(this.updateBage, () => { });
   };
 
   componentDidMount() {
@@ -69,13 +70,13 @@ export default class Home extends PureComponent {
         color={"green"}
       />
     ) : (
-      <Icon
-        name="long-arrow-left"
-        type="font-awesome"
-        size={42}
-        color="green"
-      />
-    );
+        <Icon
+          name="long-arrow-left"
+          type="font-awesome"
+          size={42}
+          color="green"
+        />
+      );
   renderTextRodando() {
     const { rodando } = this.state;
     return rodando ? "Rodando" : "Parado";
@@ -114,12 +115,12 @@ export default class Home extends PureComponent {
             circleColorOff={"red"}
             containerStyle={{
               marginTop: 16,
-              width: 300,
+              width: wp('90%'),
               borderRadius: 60,
               padding: 5,
-              height: 100
+              height: hp('17%')
             }}
-            circleStyle={{ width: 90, height: 90, borderRadius: 45 }}
+            circleStyle={{ width: wp('25%'), height: wp('25%'), borderRadius: wp('15%') }}
             duration={300}
           />
         </View>
@@ -159,12 +160,12 @@ export default class Home extends PureComponent {
               circleColorOff={"white"}
               containerStyle={{
                 marginTop: 16,
-                width: 160,
+                width: wp('60%'),
                 borderRadius: 30,
                 padding: 5,
-                height: 60
+                height: hp('10%')
               }}
-              circleStyle={{ width: 50, height: 50, borderRadius: 25 }}
+              circleStyle={{ width: wp('14%'), height: wp('14%'), borderRadius: wp('7.5%') }}
               duration={300}
             />
 
@@ -196,6 +197,7 @@ export default class Home extends PureComponent {
           />
         </View>
       </View>
+
     );
   }
 }
