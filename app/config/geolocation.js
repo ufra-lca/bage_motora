@@ -9,7 +9,7 @@ export async function getPosition(onSucess, onFail) {
         Geolocation.getCurrentPosition(
           position => onSucess(position),
           error => onFail(error),
-          { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 }
+          { enableHighAccuracy: true, timeout: 200000, maximumAge: 1000 }
         );
       } else {
         onFail({ message: "Permissão" });
@@ -28,7 +28,7 @@ export async function watchPosition(onSucess, onFail) {
         Geolocation.watchPosition(
           position => onSucess(position),
           error => onFail(error),
-          { enableHighAccuracy: false, interval: 1000, distanceFilter: 0 }
+          { enableHighAccuracy: true, interval: 10, distanceFilter: 0 }
         );
       } else {
         onFail({ message: "Permissão" });
