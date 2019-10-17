@@ -4,7 +4,10 @@ import SwitchToggle from "react-native-switch-toggle";
 import { Icon, Text, Button } from "react-native-elements";
 import { watchPosition, clearWatches } from "../config/geolocation";
 import api from "../config/api";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 export default class Home extends PureComponent {
   constructor(props) {
@@ -37,22 +40,23 @@ export default class Home extends PureComponent {
 
   updateBage = position => {
     const { rodando, zootec, sentido } = this.state;
+    const { userId } = this.props;
     const { latitude, longitude } = position.coords;
     api
       .put("/api/bages", {
         bage: {
           latitude,
           longitude,
-          one_signal: "wwewe",
+          one_signal: userId,
           rodando,
           sentido,
           zootec
         }
       })
-      .catch(() => { });
+      .catch(() => {});
   };
   watchPosition = async () => {
-    await watchPosition(this.updateBage, () => { });
+    await watchPosition(this.updateBage, () => {});
   };
 
   componentDidMount() {
@@ -70,13 +74,13 @@ export default class Home extends PureComponent {
         color={"green"}
       />
     ) : (
-        <Icon
-          name="long-arrow-left"
-          type="font-awesome"
-          size={42}
-          color="green"
-        />
-      );
+      <Icon
+        name="long-arrow-left"
+        type="font-awesome"
+        size={42}
+        color="green"
+      />
+    );
   renderTextRodando() {
     const { rodando } = this.state;
     return rodando ? "Rodando" : "Parado";
@@ -115,12 +119,16 @@ export default class Home extends PureComponent {
             circleColorOff={"red"}
             containerStyle={{
               marginTop: 16,
-              width: wp('90%'),
+              width: wp("90%"),
               borderRadius: 60,
               padding: 5,
-              height: hp('17%')
+              height: hp("17%")
             }}
-            circleStyle={{ width: wp('25%'), height: wp('25%'), borderRadius: wp('15%') }}
+            circleStyle={{
+              width: wp("25%"),
+              height: wp("25%"),
+              borderRadius: wp("15%")
+            }}
             duration={300}
           />
         </View>
@@ -160,12 +168,16 @@ export default class Home extends PureComponent {
               circleColorOff={"white"}
               containerStyle={{
                 marginTop: 16,
-                width: wp('60%'),
+                width: wp("60%"),
                 borderRadius: 30,
                 padding: 5,
-                height: hp('10%')
+                height: hp("10%")
               }}
-              circleStyle={{ width: wp('14%'), height: wp('14%'), borderRadius: wp('7.5%') }}
+              circleStyle={{
+                width: wp("14%"),
+                height: wp("14%"),
+                borderRadius: wp("7.5%")
+              }}
               duration={300}
             />
 
@@ -197,7 +209,6 @@ export default class Home extends PureComponent {
           />
         </View>
       </View>
-
     );
   }
 }
