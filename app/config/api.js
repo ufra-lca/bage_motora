@@ -1,5 +1,5 @@
 import axios from "axios";
-const hostUrl = "http://b6bd7dce.ngrok.io";
+const hostUrl = "https://bage.gigalixirapp.com/";
 
 const defaultOptions = {
   baseURL: hostUrl,
@@ -9,7 +9,7 @@ const defaultOptions = {
     dataType: "json"
   },
   transformResponse: [
-    function (data) {
+    function(data) {
       // Transformando pro formato antigo da api
       // Alguns erros não podem ser formatados para json,nesse caso simplesmente retornamos data
       try {
@@ -26,7 +26,7 @@ const defaultOptions = {
 };
 
 const Api = axios.create(defaultOptions);
-Api.interceptors.request.use(function (config) {
+Api.interceptors.request.use(function(config) {
   console.log("Request headers", config.headers);
   if (__DEV__) {
     console.log("URL  é", config.url);
